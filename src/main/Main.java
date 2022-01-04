@@ -2,14 +2,15 @@ package main;
 
 import checker.Checker;
 import common.Constants;
-import fileio.Input;
-import fileio.PreChecker;
-import fileio.Reader;
-import fileio.Writer;
+import fileio.*;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 import pojo.Child;
+import pojo.Gift;
 import pojo.Round;
+import service.ChildService;
+import service.RoundService;
+import sort.Sort;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,29 +61,54 @@ public final class Main {
      * @param outFile output file
      */
     public static void beSanta(final String inFile, final String outFile) throws IOException {
+        File out = new File(outFile);
         Reader read = new Reader(inFile);
         Input in = Input.getINSTANCE(); //the DB
+        ChildService childService = ChildService.getInstance();
+        JArrayRounds arrayRounds = new JArrayRounds(); // for writing the JSON file
+        Writer writer = new Writer(outFile); // also, for writing the JSON file
 
         read.readData(); //populate the DB
 
-        //start roundZero
         Round roundZero = new Round();
         ArrayList<Child> kids = in.getInitialData().getChildren();
+        ArrayList<Gift> gifts = in.getInitialData().getGifts();
+        ArrayList<AnnualChange> changes = in.getAnnualChanges();
         double santaBudget = in.getInitialData().getSantaBudget();
-        roundZero.calcAverageScore(kids);
-        roundZero.calcBudgetUnit(santaBudget, kids);
-        roundZero.calcAllocatedBudget(kids);
 
-        //print results of roundZero
-        Writer writer = new Writer(outFile);
-        JSONArray arrayResult = new JSONArray();
+        //start roundZero
+        roundZero.eliminateYoungAdults(kids); // kick out young adults if there are any
+        childService.updateMassHistory(kids); // update niceScoreHistory for each kid
+        roundZero.calcAverageScore(kids);   // Calculate AverageScore for each kid
+        roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
+        roundZero.calcAllocatedBudget(kids); //Calculated allocated budget for each kid
+        Sort.sortGift(gifts); //Sort gift list
+        roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
+        JArrayChild jArrayChild = new JArrayChild();
+        jArrayChild.load(kids);
+        writer.addToJSONArray(arrayRounds, jArrayChild); //add the results to the
+                                                         // jsonArray
 
-        for(Child c : kids) {
-//            arrayResult.add(writer.writeChild(c));
+        //start annualChanges
+        for(AnnualChange change : changes) {
+            santaBudget = change.getNewSantaBudget(); //update santaBudget
+            roundZero.aYearHasPassed(kids); // everybody ages
+            roundZero.eliminateYoungAdults(kids); // kick out young adults
+            roundZero.resetReceivedGifts(kids);
+            roundZero.roundHistoryUpdate(kids, change.getChildrenUpdates()); // update existing kids
+            roundZero.addNewChildren(kids, change.getNewChildren()); // add new kids
+            roundZero.calcAverageScore(kids);   // re-calculate AverageScore for each kid
+            roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
+            roundZero.calcAllocatedBudget(kids); // re-calculated allocated budget for each kid
+            roundZero.addNewGifts(gifts, change.getNewGifts()); // update gift list
+            Sort.sortGift(gifts); // sort [updated] gift list
+            roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
+            JArrayChild arrayChild = new JArrayChild();
+            arrayChild.load(kids);
+            writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the
+            // jsonArray
         }
 
-//        writer.closeJSON(arrayResult);
-
-        //begin the following rounds
+        writer.writeRound(out, arrayRounds); //print results in JSON file
     }
 }

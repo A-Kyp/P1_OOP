@@ -82,16 +82,7 @@ public final class SingleTest {
         JArrayChild jArrayChild = new JArrayChild();
         jArrayChild.load(kids);
         writer.addToJSONArray(arrayRounds, jArrayChild); //add the results to the
-        // jsonArray
-
-//        JSONArray arrayResult = new JSONArray();
-//
-//        for(Child c : kids) {
-//            System.out.println(c);
-//            arrayResult.add(writer.writeChild(c));
-//        }
-
-        //begin the following rounds
+                                                         // jsonArray
 
         for(AnnualChange change : changes) {
             santaBudget = change.getNewSantaBudget(); //update santaBudget
@@ -112,6 +103,6 @@ public final class SingleTest {
             // jsonArray
         }
 
-        writer.writeRound(out, arrayRounds); //print results of current roundZero
+        writer.writeRound(out, arrayRounds); //print results in JSON file
     }
 }
