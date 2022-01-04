@@ -5,13 +5,20 @@ import pojo.Child;
 import service.ChildService;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
-public class JArrayChild {
+public final class JArrayChild {
     @JsonProperty
-    ArrayList<Child> children = new ArrayList<>();
+    private ArrayList<Child> children = new ArrayList<>();
 
-    public void load(ArrayList<Child> kids) {
+    public ArrayList<Child> getChildren() {
+        return children;
+    }
+
+    /**
+     * @param kids the result of a round (an array of Child) that is to be deep copied
+     *             as to keep changes from a round to another
+     */
+    public void load(final ArrayList<Child> kids) {
         ChildService childService = ChildService.getInstance();
         for (Child c : kids) {
             Child clone = new Child();

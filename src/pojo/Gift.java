@@ -2,12 +2,12 @@ package pojo;
 
 import enums.Category;
 
-public class Gift {
-    private String productName;
-    private Double price;
-    private Category category;
+public final class Gift {
+    private final String productName;
+    private final Double price;
+    private final Category category;
 
-    public Gift(String productName, Double price, Category category) {
+    public Gift(final String productName, final Double price, final Category category) {
         this.productName = productName;
         this.price = price;
         this.category = category;
@@ -23,14 +23,5 @@ public class Gift {
 
     public Category getCategory() {
         return category;
-    }
-
-    @Override
-    public String toString() {
-        return "Gift{" + "\n" +
-                "\tproductName='" + productName + '\'' +  ", " + "\n" +
-                "\tprice=" + price + ", " + "\n" +
-                "\tcategory=" + category + ", " + "\n" +
-                '}';
     }
 }

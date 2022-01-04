@@ -1,11 +1,10 @@
 package fileio;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import pojo.Child;
 
 import java.util.ArrayList;
 
-public class JArrayRounds {
+public final class JArrayRounds {
     @JsonProperty
     private final ArrayList<JArrayChild> annualChildren = new ArrayList<>();
 

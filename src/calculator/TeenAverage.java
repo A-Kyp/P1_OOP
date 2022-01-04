@@ -2,20 +2,23 @@ package calculator;
 
 import pojo.Child;
 
-public class TeenAverage extends AverageScoreCalculator{
-    private static TeenAverage INSTANCE = null;
+public final class TeenAverage extends AverageScoreCalculator {
+    private static TeenAverage instance = null;
 
     private TeenAverage() { }
 
-    public static TeenAverage getINSTANCE() {
-        if (INSTANCE == null) {
-            INSTANCE = new TeenAverage();
+    /**
+     * @return the TeenAverage instance for SINGLETON
+     */
+    public static TeenAverage getInstance() {
+        if (instance == null) {
+            instance = new TeenAverage();
         }
-        return INSTANCE;
+        return instance;
     }
 
     @Override
-    public Double getAverage(Child kid) {
+    public Double getAverage(final Child kid) {
         double sum = 0d;
         int weight = kid.getNiceScoreHistory().size();
         int totalWeight = weight * (weight + 1) / 2;
@@ -23,7 +26,7 @@ public class TeenAverage extends AverageScoreCalculator{
 
         for (Double score : kid.getNiceScoreHistory()) {
             sum += score * weight;
-            weight ++;
+            weight++;
         }
 
         return sum / totalWeight;

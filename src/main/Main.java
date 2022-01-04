@@ -2,9 +2,17 @@ package main;
 
 import checker.Checker;
 import common.Constants;
-import fileio.*;
+import fileio.JArrayChild;
+import fileio.JArrayRounds;
+import fileio.PreChecker;
+import fileio.Reader;
+import fileio.Writer;
 import org.json.simple.parser.ParseException;
-import pojo.*;
+import pojo.AnnualChange;
+import pojo.Child;
+import pojo.Gift;
+import pojo.Input;
+import pojo.Round;
 import service.ChildService;
 import sort.Sort;
 
@@ -64,7 +72,7 @@ public final class Main {
     public static void beSanta(final String inFile, final String outFile) throws IOException {
         File out = new File(outFile);
         Reader read = new Reader(inFile);
-        Input in = Input.getINSTANCE(); //the DB
+        Input in = Input.getInstance(); //the DB
         ChildService childService = ChildService.getInstance();
         JArrayRounds arrayRounds = new JArrayRounds(); // for writing the JSON file
         Writer writer = new Writer(outFile); // also, for writing the JSON file
@@ -92,7 +100,7 @@ public final class Main {
 
         //start annualChanges
         int counter = 1;
-        for(AnnualChange change : changes) {
+        for (AnnualChange change : changes) {
             santaBudget = change.getNewSantaBudget(); //update santaBudget
             roundZero.aYearHasPassed(kids); // everybody ages exactly 1 year :)
             roundZero.eliminateYoungAdults(kids); // kick out young adults
@@ -110,10 +118,10 @@ public final class Main {
             arrayChild.load(kids);
             writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the
             // jsonArray
-            if(counter == in.getNumberOfYears()) {
+            if (counter == in.getNumberOfYears()) {
                 break;
             }
-            counter ++;
+            counter++;
         }
 
         writer.writeRound(out, arrayRounds); //print results in JSON file

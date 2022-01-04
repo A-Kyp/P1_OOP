@@ -1,9 +1,17 @@
 package main;
 
 import common.Constants;
-import fileio.*;
+import fileio.JArrayChild;
+import fileio.JArrayRounds;
+import fileio.PreChecker;
+import fileio.Reader;
+import fileio.Writer;
 import org.json.simple.parser.ParseException;
-import pojo.*;
+import pojo.AnnualChange;
+import pojo.Child;
+import pojo.Gift;
+import pojo.Input;
+import pojo.Round;
 import service.ChildService;
 import service.RoundService;
 import sort.Sort;
@@ -54,7 +62,7 @@ public final class SingleTest {
     public static void beSanta(final String inFile, final String outFile) throws IOException {
         File out = new File(outFile);
         Reader read = new Reader(inFile);
-        Input in = Input.getINSTANCE(); //the DB
+        Input in = Input.getInstance(); //the DB
         ChildService childService = ChildService.getInstance();
         RoundService roundService = RoundService.getInstance();
         JArrayRounds arrayRounds = new JArrayRounds();
@@ -81,7 +89,7 @@ public final class SingleTest {
         writer.addToJSONArray(arrayRounds, jArrayChild); //add the results to the
                                                          // jsonArray
 
-        for(AnnualChange change : changes) {
+        for (AnnualChange change : changes) {
             santaBudget = change.getNewSantaBudget(); //update santaBudget
             roundZero.aYearHasPassed(kids); // everybody ages
             roundZero.eliminateYoungAdults(kids); // kick out young adults

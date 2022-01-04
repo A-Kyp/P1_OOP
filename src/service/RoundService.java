@@ -4,21 +4,28 @@ import pojo.Child;
 
 import java.util.ArrayList;
 
-public class RoundService {
-    private static RoundService INSTANCE;
+public final class RoundService {
+    private static RoundService instance;
 
-    private RoundService() {}
+    private RoundService() { }
 
+    /**
+     * @return the RoundService instance for SINGLETON
+     */
     public static RoundService getInstance() {
-        if(INSTANCE == null) {
-            INSTANCE = new RoundService();
+        if (instance == null) {
+            instance = new RoundService();
         }
-        return INSTANCE;
+        return instance;
     }
 
-    public Double sumAvg(ArrayList<Child> kids) {
+    /**
+     * @param kids the Child containing all existing children
+     * @return the sum of all averageNiceScores
+     */
+    public Double sumAvg(final ArrayList<Child> kids) {
         double sum = 0d;
-        for(Child c : kids) {
+        for (Child c : kids) {
             sum += c.getAverageScore();
         }
         return sum;

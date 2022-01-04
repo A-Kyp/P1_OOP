@@ -8,29 +8,48 @@ import pojo.Gift;
 
 import java.util.ArrayList;
 
-public class ChildService {
-    private static ChildService INSTANCE;
+public final class ChildService {
+    private static ChildService instance;
 
-    private ChildService() {}
+    private ChildService() { }
 
+    /**
+     * @return the ChildInstance for SINGLETON
+     */
     public static ChildService getInstance() {
-        if(INSTANCE == null) {
-            INSTANCE = new ChildService();
+        if (instance == null) {
+            instance = new ChildService();
         }
-        return INSTANCE;
+        return instance;
     }
 
-    public void updateHistory (Child c, Double score) {
+    /**
+     * @param c Child object to be updated
+     * @param score the niceScore to be added to niceScoreHistory
+     */
+    public void updateHistory(final Child c, final Double score) {
         c.getNiceScoreHistory().add(score);
     }
 
-    public void updateMassHistory (ArrayList<Child> kids) {
-        for(Child c : kids) {
+    /**
+     * <p>
+     *     This methods continues the trick from the reading part.
+     *     The niceScore that was read as part of the initial data and stored in the
+     *     averageNiceScore will be moved to the niceScoreHistory array and the averageNiceScore
+     *     field is now ready to be modified and to store the real calculated value
+     * </p>
+     * @param kids the Child array containing all existing children
+     */
+    public void updateMassHistory(final ArrayList<Child> kids) {
+        for (Child c : kids) {
             this.updateHistory(c, c.getAverageScore());
         }
     }
 
-    public void updateAvgScore (Child c) {
+    /**
+     * @param c the Child object to be updated
+     */
+    public void updateAvgScore(final Child c) {
         AverageScoreCalculator calc;
         calc = AverageFactory.create(c.getAge());
         if (calc.getAverage(c) != null) {
@@ -38,11 +57,19 @@ public class ChildService {
         } // else do nothing as the Child would be a young adult and is already eliminated
     }
 
-    public void updateAllocatedBudget(Child c, Double budgetUnit) {
+    /**
+     * @param c the Child object to be updated
+     * @param budgetUnit the current round calculated budgetUnit
+     */
+    public void updateAllocatedBudget(final Child c, final Double budgetUnit) {
         c.setAssignedBudget(c.getAverageScore() * budgetUnit);
     }
 
-    public void allocateGift(Child c, ArrayList<Gift> gifts) {
+    /**
+     * @param c the Child object to be updated
+     * @param gifts the sorted Gift array containing the available gifts
+     */
+    public void allocateGift(final Child c, final ArrayList<Gift> gifts) {
         double budget = c.getAssignedBudget();
         for (Category category : c.getGiftsPreferences()) {
             for (Gift g : gifts) {
@@ -55,15 +82,19 @@ public class ChildService {
         }
     }
 
-    public void updatePreferences(Child c, ArrayList<Category> newPref) {
+    /**
+     * @param c the Child object to be updated
+     * @param newPref the Category array containing the new giftPreferences to be added
+     */
+    public void updatePreferences(final Child c, final ArrayList<Category> newPref) {
         ArrayList<Category> combinedPref = new ArrayList<>();
-        for(Category category : newPref) {
+        for (Category category : newPref) {
             if (!combinedPref.contains(category)) {
                 combinedPref.add(category);
             }
         }
 
-        for(Category category : c.getGiftsPreferences()) {
+        for (Category category : c.getGiftsPreferences()) {
             if (!combinedPref.contains(category)) {
                 combinedPref.add(category);
             }
@@ -72,15 +103,25 @@ public class ChildService {
         c.setGiftsPreferences(combinedPref);
     }
 
-    public void updateAge(Child c) {
+    /**
+     * @param c the Child object to be updated
+     */
+    public void updateAge(final Child c) {
         c.setAge(c.getAge() + 1);
     }
 
-    public void resetReceivedGifts(Child c) {
+    /**
+     * @param c the Child object to be updated
+     */
+    public void resetReceivedGifts(final Child c) {
         c.getReceivedGifts().clear();
     }
 
-    public void deepCopy(Child src, Child dest) {
+    /**
+     * @param src the initial Child object to be deep copied
+     * @param dest the new Child object which will ce the clone of the initial one
+     */
+    public void deepCopy(final Child src, final Child dest) {
         dest.setId(src.getId());
         dest.setLastName(src.getLastName());
         dest.setFirstName(src.getFirstName());

@@ -5,59 +5,82 @@ import service.ChildService;
 import service.RoundService;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class Round {
+public final class Round {
     private Double budgetUnit = 0d;
-    RoundService roundService = RoundService.getInstance();
-    ChildService childService = ChildService.getInstance();
+    private final RoundService roundService = RoundService.getInstance();
+    private final ChildService childService = ChildService.getInstance();
 
     public Double getBudgetUnit() {
         return budgetUnit;
     }
 
-    //calculate average niceScore
-    public void calcAverageScore(ArrayList<Child> kids) {
+    /**
+     * Calculate average niceScore for each child
+     * @param kids the Child array containing the children
+     */
+    public void calcAverageScore(final ArrayList<Child> kids) {
         for (Child c : kids) {
             childService.updateAvgScore(c);
         }
     }
 
-    //distribute santaBudget
-    public void calcBudgetUnit(Double santaBudget, ArrayList<Child> kids) {
+    /**
+     * Calculate budgetUnit
+     * @param santaBudget the current round available santaBudget
+     * @param kids the Child array containing the eligible children
+     */
+    public void calcBudgetUnit(final Double santaBudget, final ArrayList<Child> kids) {
         budgetUnit = santaBudget / roundService.sumAvg(kids);
     }
 
-    //calculate assigned budget for each kid
-    public void calcAllocatedBudget(ArrayList<Child> kids) {
-        for(Child c : kids) {
+    /**
+     * calculate assigned budget for each kid
+     * @param kids the Child array containing the eligible children
+     */
+    public void calcAllocatedBudget(final ArrayList<Child> kids) {
+        for (Child c : kids) {
             childService.updateAllocatedBudget(c, budgetUnit);
         }
     }
 
-    //distribute gifts
-    public void distributeGifts(ArrayList<Child> kids, ArrayList<Gift> gifts) {
+    /**
+     * distribute gifts to children
+     * @param kids the Child array containing the eligible children
+     * @param gifts the Gift array containing the available gifts
+     */
+    public void distributeGifts(final ArrayList<Child> kids, final ArrayList<Gift> gifts) {
         for (Child c : kids) {
             childService.allocateGift(c, gifts);
         }
     }
 
-    //annual change -> add new kids to the list of children
-    public void addNewChildren(ArrayList<Child> initial, ArrayList<Child> newKids) {
-        if(newKids != null) {
+    /**
+     * annual change -> add new kids to the list of children
+     * @param initial the initial array containing already existent children
+     * @param newKids the array containing children to be added to the initial array
+     */
+    public void addNewChildren(final ArrayList<Child> initial, final ArrayList<Child> newKids) {
+        if (newKids != null) {
             childService.updateMassHistory(newKids);
             initial.addAll(newKids);
         }
     }
 
-    //annual change -> update existing kids info
-    public void roundHistoryUpdate(ArrayList<Child> initial, ArrayList<Child> updates) {
-        for(Child update : updates) {
-            for(Child c : initial) {
-                if(c.getId() == update.getId()) {
-                    if(update.getAverageScore() != null) {
+    /**
+     * annual change -> update existing kids info
+     * @param initial the initial Child array containing already existent children
+     * @param updates the Child array containing childrenUpdates
+     */
+    public void roundHistoryUpdate(final ArrayList<Child> initial, final ArrayList<Child> updates) {
+        for (Child update : updates) {
+            for (Child c : initial) {
+                if (Objects.equals(c.getId(), update.getId())) {
+                    if (update.getAverageScore() != null) {
                         c.getNiceScoreHistory().add(update.getAverageScore());
                     }
-                    if(update.getGiftsPreferences() != null) {
+                    if (update.getGiftsPreferences() != null) {
                         childService.updatePreferences(c, update.getGiftsPreferences());
                     }
                 }
@@ -65,29 +88,43 @@ public class Round {
         }
     }
 
-    //annual change -> update gift list
-    public void addNewGifts(ArrayList<Gift> initial, ArrayList<Gift> newGift) {
-        if(newGift != null) {
+    /**
+     * annual change -> update gift list
+     * @param initial the initial Gift array containing already available gift
+     * @param newGift the Gift array containing gifts to be added to the initial array
+     */
+    public void addNewGifts(final ArrayList<Gift> initial, final ArrayList<Gift> newGift) {
+        if (newGift != null) {
             initial.addAll(newGift);
         }
 
     }
 
-    //annual change -> everybody ages!! A year has passed!
-    public void aYearHasPassed(ArrayList<Child> kids) {
-        for(Child c : kids) {
+    /**
+     * annual change -> everybody ages!! A year has passed!
+     * @param kids the Child array containing all the existent children
+     */
+    public void aYearHasPassed(final ArrayList<Child> kids) {
+        for (Child c : kids) {
             childService.updateAge(c);
         }
     }
 
-    //annual change -> eliminate young adults
-    public void eliminateYoungAdults(ArrayList<Child> kids) {
+    /**
+     * annual change -> eliminate young adults
+     * @param kids the Child array containing all the existent children, including potential
+     *             young Adults
+     */
+    public void eliminateYoungAdults(final ArrayList<Child> kids) {
         kids.removeIf(c -> c.getAge() > Constants.TEEN_AGE);
     }
 
-    //annual change -> reset receivedGifts
-    public void resetReceivedGifts(ArrayList<Child> kids) {
-        for(Child c : kids) {
+    /**
+     * annual change -> reset receivedGifts
+     * @param kids the Child array containing all the existent children
+     */
+    public void resetReceivedGifts(final ArrayList<Child> kids) {
+        for (Child c : kids) {
             childService.resetReceivedGifts(c);
         }
     }

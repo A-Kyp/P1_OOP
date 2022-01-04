@@ -2,26 +2,29 @@ package pojo;
 
 import java.util.ArrayList;
 
-public class Input {
+public final class Input {
     private InitialData initialData = new InitialData();
     private ArrayList<AnnualChange> annualChanges = new ArrayList<>();
     private int numberOfYears;
-    private static Input INSTANCE = null;
+    private static Input instance = null;
 
     private Input() { }
 
-    public static Input getINSTANCE() {
-        if (INSTANCE == null) {
-            INSTANCE = new Input();
+    /**
+     * @return the Input instance for SINGLETON
+     */
+    public static Input getInstance() {
+        if (instance == null) {
+            instance = new Input();
         }
-        return INSTANCE;
+        return instance;
     }
 
-    public void setInitialData(InitialData initialData) {
+    public void setInitialData(final InitialData initialData) {
         this.initialData = initialData;
     }
 
-    public void setAnnualChanges(ArrayList<AnnualChange> annualChanges) {
+    public void setAnnualChanges(final ArrayList<AnnualChange> annualChanges) {
         this.annualChanges = annualChanges;
     }
 
@@ -29,7 +32,7 @@ public class Input {
         return numberOfYears;
     }
 
-    public void setNumberOfYears(int numberOfYears) {
+    public void setNumberOfYears(final int numberOfYears) {
         this.numberOfYears = numberOfYears;
     }
 

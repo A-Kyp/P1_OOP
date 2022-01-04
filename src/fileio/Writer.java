@@ -3,19 +3,15 @@ package fileio;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import pojo.Child;
-import service.ChildService;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-
 
 /**
  * The class writes the output in files
  */
-public class Writer {
+public final class Writer {
     /**
      * The file where the data will be written
      */
@@ -32,7 +28,7 @@ public class Writer {
      * @param array the array containing the results of each round
      * @throws IOException in case of exceptions to reading / writing
      */
-    public void writeRound(File out, JArrayRounds array) throws IOException {
+    public void writeRound(final File out, final JArrayRounds array) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
@@ -40,7 +36,11 @@ public class Writer {
 
     }
 
-    public void addToJSONArray(JArrayRounds arr, JArrayChild arrayChild) {
+    /**
+     * @param arr the JArrayRounds instance that keeps the final result which is to be printed
+     * @param arrayChild the JArrayChild that keep the result of a single round
+     */
+    public void addToJSONArray(final JArrayRounds arr, final JArrayChild arrayChild) {
         arr.getAnnualChildren().add(arrayChild);
     }
 }

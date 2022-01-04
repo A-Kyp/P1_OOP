@@ -3,15 +3,21 @@ package sort;
 import pojo.Gift;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
-public class Sort {
-    public static void sortGift(ArrayList<Gift> gifts) {
-        Collections.sort(gifts, new Comparator<Gift>() {
+public final class Sort {
+    private Sort() { }
+
+    /**
+     * @param gifts the Gift array to be sorted by:
+     *              1. category (asc)
+     *              2. price (asc)
+     */
+    public static void sortGift(final ArrayList<Gift> gifts) {
+        gifts.sort(new Comparator<Gift>() {
             @Override
-            public int compare(Gift o1, Gift o2) {
-                if(o1.getCategory().compareTo(o2.getCategory()) == 0) {
+            public int compare(final Gift o1, final Gift o2) {
+                if (o1.getCategory().compareTo(o2.getCategory()) == 0) {
                     return o1.getPrice().compareTo(o2.getPrice());
                 }
                 return o1.getCategory().compareTo(o2.getCategory());
