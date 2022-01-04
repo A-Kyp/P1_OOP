@@ -20,6 +20,12 @@ public final class Constants {
     public static final String RESULT_PATH = "result";
     public static final String OUT_PATH = "result/out_";
 
+    //Calculator constants
+    public static final Double BABY_SCORE = 10d;
+    public static final int BABY_AGE = 5;
+    public static final int KID_AGE = 12;
+    public static final int TEEN_AGE = 18;
+
     //for parsing JSON files
     public static final String NUMBER_OF_YEARS = "numberOfYears";
     public static final String SANTA_BUDGET = "santaBudget";

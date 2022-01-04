@@ -12,4 +12,25 @@ public class Gift {
         this.price = price;
         this.category = category;
     }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    @Override
+    public String toString() {
+        return "Gift{" + "\n" +
+                "\tproductName='" + productName + '\'' +  ", " + "\n" +
+                "\tprice=" + price + ", " + "\n" +
+                "\tcategory=" + category + ", " + "\n" +
+                '}';
+    }
 }

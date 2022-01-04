@@ -5,14 +5,18 @@ import common.Constants;
 import fileio.Input;
 import fileio.PreChecker;
 import fileio.Reader;
+import fileio.Writer;
+import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
+import pojo.Child;
+import pojo.Round;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -43,7 +47,7 @@ public final class Main {
             File out = new File(filepath);
             boolean isCreated = out.createNewFile();
             if (isCreated) {
-                action(file.getAbsolutePath(), filepath);
+                beSanta(file.getAbsolutePath(), filepath);
             }
         }
 
@@ -55,11 +59,30 @@ public final class Main {
      * @param inFile input file
      * @param outFile output file
      */
-    public static void action(final String inFile, final String outFile) throws FileNotFoundException {
+    public static void beSanta(final String inFile, final String outFile) throws IOException {
         Reader read = new Reader(inFile);
         Input in = Input.getINSTANCE(); //the DB
 
-        read.readData();
+        read.readData(); //populate the DB
 
+        //start roundZero
+        Round roundZero = new Round();
+        ArrayList<Child> kids = in.getInitialData().getChildren();
+        double santaBudget = in.getInitialData().getSantaBudget();
+        roundZero.calcAverageScore(kids);
+        roundZero.calcBudgetUnit(santaBudget, kids);
+        roundZero.calcAllocatedBudget(kids);
+
+        //print results of roundZero
+        Writer writer = new Writer(outFile);
+        JSONArray arrayResult = new JSONArray();
+
+        for(Child c : kids) {
+//            arrayResult.add(writer.writeChild(c));
+        }
+
+//        writer.closeJSON(arrayResult);
+
+        //begin the following rounds
     }
 }

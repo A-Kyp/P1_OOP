@@ -2,24 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d662010a-d6c5-4bb5-92a6-5b13c2206c94" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fileio/AnnualChange.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fileio/InitialData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fileio/Input.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fileio/PreChecker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/fileio/Reader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pojo/Child.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pojo/Gift.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pojo/Round.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/Utils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/calculator/AverageFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/calculator/AverageScoreCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/calculator/BabyAverage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/calculator/KidAverage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/calculator/TeenAverage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fileio/JArrayChild.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fileio/JArrayRounds.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/fileio/Writer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/SingleTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pojo/PlayRound.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/ChildService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/RoundService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sort/Sort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/checkstyle.txt" beforeDir="false" afterPath="$PROJECT_DIR$/checkstyle.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/proiect1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/proiect1.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fileio/InitialData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileio/InitialData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fileio/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileio/Input.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/fileio/Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/fileio/Reader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojo/Child.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojo/Child.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojo/Gift.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojo/Gift.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojo/Round.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojo/Round.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +59,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -60,7 +69,7 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.SingleTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.Main" />
       <module name="proiect1" />
@@ -74,8 +83,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SingleTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.SingleTest" />
+      <module name="proiect1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SingleTest" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -102,5 +125,8 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

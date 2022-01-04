@@ -3,23 +3,26 @@ package pojo;
 import enums.Category;
 import enums.Cities;
 
-import javax.xml.stream.Location;
 import java.util.ArrayList;
 
 public class Child {
     private Integer id;
-    private Integer age;
-    private Double niceScore;
-    private ArrayList<Double> niceScoreHistory = new ArrayList<>();
     private String lastName;
     private String firstName;
     private Cities city;
-    private ArrayList<Category> preferences = new ArrayList<>();
+    private Integer age;
+    private ArrayList<Category> giftsPreferences = new ArrayList<>();
+    private Double averageScore;
+    private ArrayList<Double> niceScoreHistory = new ArrayList<>();
+    private Double assignedBudget;
+    private ArrayList<Gift> receivedGifts = new ArrayList<>();
+
+    public Child() { }
 
     private Child(ChildBuilder builder) {
         this.id = builder.id;
-        this.niceScore = builder.niceScore;
-        this.preferences = builder.preferences;
+        this.averageScore = builder.avgNiceScore;
+        this.giftsPreferences = builder.preferences;
         this.lastName = builder.lastName;
         this.firstName = builder.firstName;
         this.age = builder.age;
@@ -34,8 +37,8 @@ public class Child {
         return age;
     }
 
-    public Double getNiceScore() {
-        return niceScore;
+    public Double getAverageScore() {
+        return averageScore;
     }
 
     public ArrayList<Double> getNiceScoreHistory() {
@@ -54,19 +57,65 @@ public class Child {
         return city;
     }
 
-    public ArrayList<Category> getPreferences() {
-        return preferences;
+    public ArrayList<Category> getGiftsPreferences() {
+        return giftsPreferences;
+    }
+
+    public Double getAssignedBudget() {
+        return assignedBudget;
+    }
+
+    public ArrayList<Gift> getReceivedGifts() {
+        return receivedGifts;
+    }
+
+    public void setAverageScore(Double averageScore) {
+        this.averageScore = averageScore;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public void setNiceScoreHistory(ArrayList<Double> niceScoreHistory) {
+        this.niceScoreHistory = niceScoreHistory;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setCity(Cities city) {
+        this.city = city;
+    }
+
+    public void setGiftsPreferences(ArrayList<Category> giftsPreferences) {
+        this.giftsPreferences = giftsPreferences;
+    }
+
+    public void setAssignedBudget(Double assignedBudget) {
+        this.assignedBudget = assignedBudget;
     }
 
     public static class ChildBuilder {
         private Integer id;
         private Integer age;
-        private Double niceScore;
+        private Double avgNiceScore;
         private ArrayList<Double> niceScoreHistory = new ArrayList<>();
         private String lastName;
         private String firstName;
         private Cities city;
         private  ArrayList<Category> preferences = new ArrayList<>();
+        private Double allocatedBudget;
+        private ArrayList<Gift> receivedGifts = new ArrayList<>();
 
         public ChildBuilder(Integer id) {
             this.id = id;
@@ -93,7 +142,7 @@ public class Child {
         }
 
         public ChildBuilder withNiceScore(Double niceScore) {
-            this.niceScore = niceScore;
+            this.avgNiceScore = niceScore;
             return this;
         }
 
@@ -106,5 +155,21 @@ public class Child {
             return new Child(this);
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "Child{" +
+                "id=" + id + ", " + "\n" +
+                "lastName='" + lastName + '\'' + ", " + "\n" +
+                "firstName='" + firstName + '\'' + ", " + "\n" +
+                "city=" + city + ", " + "\n" +
+                "age=" + age + "\n" +
+                "preferences=" + giftsPreferences + ", " + "\n" +
+                "avgNiceScore=" + averageScore + ", " + "\n" +
+                "niceScoreHistory=" + niceScoreHistory + ", " + "\n" +
+                "allocatedBudget=" + assignedBudget + ", " + "\n" +
+                "receivedGifts=" + receivedGifts + "\n" +
+                '}';
     }
 }

@@ -57,6 +57,7 @@ public class Reader {
                       .withAge((int) (long) ((JSONObject) kid).get(Constants.AGE))
                       .withCity(Utils.toCity((String) ((JSONObject) kid).get(Constants.CITY)))
                       .build());
+//                    System.out.println(children.get(children.size()-1));
                 }
             }
 
@@ -88,6 +89,7 @@ public class Reader {
             Input in = Input.getINSTANCE(); //create the database (DB)
             in.setAnnualChanges(annualChanges); //populate the DB
             in.setInitialData(iData);
+            in.setNumberOfYears(jNumberOfYears);
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Input {
     private InitialData initialData = new InitialData();
     private ArrayList<AnnualChange> annualChanges = new ArrayList<>();
+    private int numberOfYears;
     private static Input INSTANCE = null;
 
     private Input() { }
@@ -25,6 +26,14 @@ public class Input {
         this.annualChanges = annualChanges;
     }
 
+    public int getNumberOfYears() {
+        return numberOfYears;
+    }
+
+    public void setNumberOfYears(int numberOfYears) {
+        this.numberOfYears = numberOfYears;
+    }
+
     public InitialData getInitialData() {
         return initialData;
     }
@@ -33,8 +42,4 @@ public class Input {
         return annualChanges;
     }
 
-    //    public Input(InitialData initialData, ArrayList<AnnualChange> annualChanges) {
-//        this.initialData = initialData;
-//        this.annualChanges = annualChanges;
-//    }
 }
