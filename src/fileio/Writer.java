@@ -40,17 +40,8 @@ public class Writer {
 
     }
 
-    public void addToJSONArray(JArrayChild arr, InitialData iData) {
-//        arr.getAnnualChildren().add(iData.getChildren());
-        ChildService childService = ChildService.getInstance();
-        ArrayList<Child> copy = new ArrayList<>();
-        for (Child c : iData.getChildren()) {
-            Child bkup = new Child();
-            childService.deepCopy(c, bkup);
-            copy.add(bkup);
-        }
-
-        arr.load(copy);
+    public void addToJSONArray(JArrayRounds arr, JArrayChild arrayChild) {
+        arr.getAnnualChildren().add(arrayChild);
     }
 }
 

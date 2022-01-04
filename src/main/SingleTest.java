@@ -1,5 +1,6 @@
 package main;
 
+import checker.Checker;
 import common.Constants;
 import fileio.*;
 import org.json.simple.parser.ParseException;
@@ -45,7 +46,7 @@ public final class SingleTest {
 
         beSanta(in, out);
 
-//        Checker.calculateScore();
+        Checker.calculateScore();
 
     }
 
@@ -54,15 +55,13 @@ public final class SingleTest {
      * @param outFile output file
      */
     public static void beSanta(final String inFile, final String outFile) throws IOException {
-        JArrayRounds jsonArray = new JArrayRounds();
-        JArrayChild jArrayChild = new JArrayChild();
         File out = new File(outFile);
         Reader read = new Reader(inFile);
         Input in = Input.getINSTANCE(); //the DB
         ChildService childService = ChildService.getInstance();
         RoundService roundService = RoundService.getInstance();
+        JArrayRounds arrayRounds = new JArrayRounds();
         Writer writer = new Writer(outFile);
-
 
         read.readData(); //populate the DB
 
@@ -80,8 +79,10 @@ public final class SingleTest {
         roundZero.calcAllocatedBudget(kids); //Calculated allocated budget for each kid
         Sort.sortGift(gifts); //Sort gift list
         roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
-
-        writer.addToJSONArray(jArrayChild, in.getInitialData()); //add the results to the jsonArray
+        JArrayChild jArrayChild = new JArrayChild();
+        jArrayChild.load(kids);
+        writer.addToJSONArray(arrayRounds, jArrayChild); //add the results to the
+        // jsonArray
 
 //        JSONArray arrayResult = new JSONArray();
 //
@@ -105,10 +106,12 @@ public final class SingleTest {
             roundZero.addNewGifts(gifts, change.getNewGifts()); // update gift list
             Sort.sortGift(gifts); // sort [updated] gift list
             roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
-            writer.addToJSONArray(jArrayChild, in.getInitialData()); //add the results to the
+            JArrayChild arrayChild = new JArrayChild();
+            arrayChild.load(kids);
+            writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the
             // jsonArray
         }
 
-        writer.writeRound(out, jsonArray); //print results of current roundZero
+        writer.writeRound(out, arrayRounds); //print results of current roundZero
     }
 }
