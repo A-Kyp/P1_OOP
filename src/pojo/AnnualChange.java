@@ -1,18 +1,15 @@
-package fileio;
-
-import pojo.Child;
-import pojo.Gift;
+package pojo;
 
 import java.util.ArrayList;
 
-public class AnnualChange {
-    private Double newSantaBudget;
-    private ArrayList<Child> newChildren = new ArrayList<>();
-    private ArrayList<Child> childrenUpdates = new ArrayList<>();
-    private ArrayList<Gift> newGifts = new ArrayList<>();
+public final class AnnualChange {
+    private final Double newSantaBudget;
+    private final ArrayList<Child> newChildren = new ArrayList<>();
+    private final ArrayList<Child> childrenUpdates = new ArrayList<>();
+    private final ArrayList<Gift> newGifts = new ArrayList<>();
 
-    public AnnualChange(Double newSantaBudget, ArrayList<Child> newChildren,
-                        ArrayList<Child> childrenUpdates, ArrayList<Gift> newGifts) {
+    public AnnualChange(final Double newSantaBudget, final ArrayList<Child> newChildren,
+                        final ArrayList<Child> childrenUpdates, final ArrayList<Gift> newGifts) {
         this.newSantaBudget = newSantaBudget;
         this.newChildren.addAll(newChildren);
         this.childrenUpdates.addAll(childrenUpdates);
