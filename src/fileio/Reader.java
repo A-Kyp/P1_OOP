@@ -6,8 +6,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import pojo.Child;
-import pojo.Gift;
+import pojo.*;
 import util.Utils;
 
 import java.io.FileNotFoundException;
@@ -30,16 +29,12 @@ public class Reader {
         this.inputPath = inputPath;
     }
 
-    public String getInputPath() {
-        return inputPath;
-    }
-
     public void readData() throws FileNotFoundException {
         try {
             // Parsing the contents of the JSON file
             JSONObject jObj = (JSONObject) jp.parse(new FileReader(inputPath));
-            Integer jNumberOfYears = (int) ((long) jObj.get(Constants.NUMBER_OF_YEARS));
-            Double jSantaBudget = (double) (long) jObj.get(Constants.SANTA_BUDGET);
+            int jNumberOfYears = (int) ((long) jObj.get(Constants.NUMBER_OF_YEARS));
+            double jSantaBudget = (double) (long) jObj.get(Constants.SANTA_BUDGET);
             JSONObject jIData = (JSONObject) jObj.get(Constants.INITIAL_DATA);
             JSONArray jChildren = (JSONArray) jIData.get(Constants.CHILDREN);
             JSONArray jGift = (JSONArray) jIData.get(Constants.SANTA_GIFT_LIST);
@@ -57,7 +52,6 @@ public class Reader {
                       .withAge((int) (long) ((JSONObject) kid).get(Constants.AGE))
                       .withCity(Utils.toCity((String) ((JSONObject) kid).get(Constants.CITY)))
                       .build());
-//                    System.out.println(children.get(children.size()-1));
                 }
             }
 

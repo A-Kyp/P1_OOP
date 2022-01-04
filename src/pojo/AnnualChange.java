@@ -1,4 +1,4 @@
-package fileio;
+package pojo;
 
 import pojo.Child;
 import pojo.Gift;

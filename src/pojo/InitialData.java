@@ -1,4 +1,4 @@
-package fileio;
+package pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.Cities;

@@ -1,6 +1,5 @@
-package fileio;
+package pojo;
 
-import javax.management.InstanceAlreadyExistsException;
 import java.util.ArrayList;
 
 public class Input {

@@ -48,24 +48,6 @@ public class Utils {
         };
     }
 
-
-    /**
-     * Transforms an array of JSON's into an array of Cities
-     * @param array of JSONs
-     * @return a list of Cities enum
-     */
-    public static ArrayList<Cities> convertJSONArrayCity(final JSONArray array) {
-        if (array != null) {
-            ArrayList<Cities> finalArray = new ArrayList<>();
-            for (Object object : array) {
-                finalArray.add(toCity((String) object));
-            }
-            return finalArray;
-        } else {
-            return null;
-        }
-    }
-
     /**
      * Transforms an array of JSON's into an array of Category
      * @param array of JSONs

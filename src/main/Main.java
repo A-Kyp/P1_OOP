@@ -3,13 +3,9 @@ package main;
 import checker.Checker;
 import common.Constants;
 import fileio.*;
-import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
-import pojo.Child;
-import pojo.Gift;
-import pojo.Round;
+import pojo.*;
 import service.ChildService;
-import service.RoundService;
 import sort.Sort;
 
 import java.io.File;
@@ -44,7 +40,12 @@ public final class Main {
         PreChecker.deleteFiles(outputDirectory.listFiles());
 
         for (File file : Objects.requireNonNull(directory.listFiles())) {
-            String filepath = Constants.OUT_PATH + file.getName();
+            String extension;
+            String test = "test";
+            int index = test.length();
+            extension = file.getName().substring(index);
+            String filepath = Constants.OUT_PATH + extension;
+//            counter ++;
             File out = new File(filepath);
             boolean isCreated = out.createNewFile();
             if (isCreated) {
@@ -90,13 +91,15 @@ public final class Main {
                                                          // jsonArray
 
         //start annualChanges
+        int counter = 1;
         for(AnnualChange change : changes) {
             santaBudget = change.getNewSantaBudget(); //update santaBudget
-            roundZero.aYearHasPassed(kids); // everybody ages
+            roundZero.aYearHasPassed(kids); // everybody ages exactly 1 year :)
             roundZero.eliminateYoungAdults(kids); // kick out young adults
             roundZero.resetReceivedGifts(kids);
             roundZero.roundHistoryUpdate(kids, change.getChildrenUpdates()); // update existing kids
             roundZero.addNewChildren(kids, change.getNewChildren()); // add new kids
+            roundZero.eliminateYoungAdults(kids); // kick out young adults
             roundZero.calcAverageScore(kids);   // re-calculate AverageScore for each kid
             roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
             roundZero.calcAllocatedBudget(kids); // re-calculated allocated budget for each kid
@@ -107,6 +110,10 @@ public final class Main {
             arrayChild.load(kids);
             writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the
             // jsonArray
+            if(counter == in.getNumberOfYears()) {
+                break;
+            }
+            counter ++;
         }
 
         writer.writeRound(out, arrayRounds); //print results in JSON file

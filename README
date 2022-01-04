@@ -13,13 +13,13 @@ the processed data in a JSON file.
    * All  involved classes can be found in the **fileio** package
    * For parsing the input the **org.json** library was used
    * Some helper methods can be found in the **Utils** class
-   
+
 2.PROCESSING DATA
    * The involved classes are divided in different packages depending on their functionality:
      * *calculator* -> classes that are involved in the averageScore calculation
-     * *pojo* -> contains classes that are mainly for storing and organising data (~ like 
+     * *pojo* -> contains classes that are mainly for storing and organising data (~ like
        structures from C)
-     * *service* -> classes that modifies / updates specific fields or does small jobs  for certain 
+     * *service* -> classes that modifies / updates specific fields or does small jobs  for certain
      classes
      * *sort* -> contains a class that sort an array of Gifts
      * *main* -> contains classes that run the checker
@@ -33,35 +33,35 @@ First, the input data are read and parsed into 2 classes: Child and Gift, and fu
 InitialData and AnnualChange(s).
 For reading purposes the Child object are instantiated using BUILDER design as such:
 
-* The initial children and the new children from annualUpdates (if they exist) are generated with 
-all fields having a notNull value. 
+* The initial children and the new children from annualUpdates (if they exist) are generated with
+all fields having a notNull value.
 
-* The childrenUpdates are generated as Child objects that have notNull values only for the field(s) 
+* The childrenUpdates are generated as Child objects that have notNull values only for the field(s)
   that have to be changed, the other fields rest as null.
 
-At the end of the reading process the database(BD) which is kept in the Input class should be 
-formed and populated. As the DB is universal, the Input class uses the SINGLETON design pattern 
+At the end of the reading process the database(BD) which is kept in the Input class should be
+formed and populated. As the DB is universal, the Input class uses the SINGLETON design pattern
 (DP).
 
 With the now populated DB the processing phase begins.
 
-For calculating the averageNiceScore there are 3 different types of calculator classes that all 
-inherit the AverageScoreCalculator class. Depending on the age of the child one of the 3 classes 
-is instantiated. As there is no need for more instances of this calculator classes the SINGLETON 
-pattern was used again. Also, the FACTORY pattern was used for getting the instance of the 
+For calculating the averageNiceScore there are 3 different types of calculator classes that all
+inherit the AverageScoreCalculator class. Depending on the age of the child one of the 3 classes
+is instantiated. As there is no need for more instances of this calculator classes the SINGLETON
+pattern was used again. Also, the FACTORY pattern was used for getting the instance of the
 required calculator class.
 
-For writing the JSON file which contains the result, the JArrayRounds and JArrayChild classes 
-were used. The final result which is to be printed is stored in the JArrayRounds' annualChildren 
-array (an array of JArrayChild with numberOfYears + 1 elements). The result of each individual 
-round is store in the JArrayChild's children array. To keep the result of each round unchanged, 
-from one round to another, each child from the result array is deep copied when it is loaded in 
+For writing the JSON file which contains the result, the JArrayRounds and JArrayChild classes
+were used. The final result which is to be printed is stored in the JArrayRounds' annualChildren
+array (an array of JArrayChild with numberOfYears + 1 elements). The result of each individual
+round is store in the JArrayChild's children array. To keep the result of each round unchanged,
+from one round to another, each child from the result array is deep copied when it is loaded in
 the JArrayChild.
 
 ###General Flow Of The Data Processing
 Every action performed in a round is done by Round object, which in turn uses the service classes.
 
-Action to be performed in a normal round: 
+Action to be performed in a normal round:
 1. The existing children will get older by 1 year
 2. Kick out the (now) young adults
 3. Update niceScoreHistory of the children that have updates
@@ -77,14 +77,14 @@ Action to be performed in a normal round:
 
 For the initial round which is played separately, the 1, 2, 3, and 11 steps were omitted.
 
-The counter variable used during the annualChanges serves only one purpose: to correct test7.json 
-which is written wrongly as the numberOfYears = ***5***, but there are ***6*** annualChanges. 
+The counter variable used during the annualChanges serves only one purpose: to correct test7.json
+which is written wrongly as the numberOfYears = ***5***, but there are ***6*** annualChanges.
 
-The Child objects are modified via ChildService instance. The sum of all the averageNiceScores 
-is calculated and delivered to the Round object by the RoundService instance. The service class are 
-also SINGLETON. 
+The Child objects are modified via ChildService instance. The sum of all the averageNiceScores
+is calculated and delivered to the Round object by the RoundService instance. The service class are
+also SINGLETON.
 
 ##Links
 - For the homework [description](https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/proiect/etapa1)
-- For code [skel](https://github.com/oop-pub/oop-asignments/tree/master/proiect1) 
+- For code [skel](https://github.com/oop-pub/oop-asignments/tree/master/proiect1)
 

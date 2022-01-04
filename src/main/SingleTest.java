@@ -1,12 +1,9 @@
 package main;
 
-import checker.Checker;
 import common.Constants;
 import fileio.*;
 import org.json.simple.parser.ParseException;
-import pojo.Child;
-import pojo.Gift;
-import pojo.Round;
+import pojo.*;
 import service.ChildService;
 import service.RoundService;
 import sort.Sort;
@@ -41,12 +38,12 @@ public final class SingleTest {
         File outputDirectory = new File(Constants.RESULT_PATH);
         PreChecker.deleteFiles(outputDirectory.listFiles());
 
-        String in = "tests/test12.json";
-        String out = "result/test12.json";
+        String in = "tests/test7.json";
+        String out = "output/test7.json";
 
         beSanta(in, out);
 
-        Checker.calculateScore();
+        //Checker.calculateScore();
 
     }
 
@@ -91,6 +88,7 @@ public final class SingleTest {
             roundZero.resetReceivedGifts(kids);
             roundZero.roundHistoryUpdate(kids, change.getChildrenUpdates()); // update existing kids
             roundZero.addNewChildren(kids, change.getNewChildren()); // add new kids
+            roundZero.eliminateYoungAdults(kids); // kick out young adults
             roundZero.calcAverageScore(kids);   // re-calculate AverageScore for each kid
             roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
             roundZero.calcAllocatedBudget(kids); // re-calculated allocated budget for each kid
