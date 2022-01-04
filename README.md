@@ -84,6 +84,14 @@ The Child objects are modified via ChildService instance. The sum of all the ave
 is calculated and delivered to the Round object by the RoundService instance. The service class are 
 also SINGLETON. 
 
+##Other mentions
+For running a single test at once the SingleTest class was created.
+
+The PreChecker class delete all resulting files from the output folder, before each run to 
+ensure that the beSanta() method of the Main class is called (the method is called only if the 
+outputFile is successfully created and an already existing file would lead to failure as the 
+file will not be crated).
+
 ##Links
 - For the homework [description](https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/proiect/etapa1)
 - For code [skel](https://github.com/oop-pub/oop-asignments/tree/master/proiect1) 
