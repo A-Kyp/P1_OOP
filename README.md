@@ -86,7 +86,7 @@ is calculated and delivered to the Round object by the RoundService instance. Th
 also SINGLETON. 
 
 ##Other mentions
-For running a single test at once the SingleTest class was created.
+For running a single test the SingleTest class was created.
 
 The PreChecker class delete all resulting files from the output folder, before each run to 
 ensure that the beSanta() method of the Main class is called (the method is called only if the 
