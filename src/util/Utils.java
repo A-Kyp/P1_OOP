@@ -110,7 +110,6 @@ public final class Utils {
             for (Object object : array) {
                 Object score = ((JSONObject) object).get(Constants.NICE_SCORE);
                 Object giftPreference = ((JSONObject) object).get(Constants.GIFTS_PREFERENCES);
-
                 if (score != null && giftPreference != null) {
                     Child kid = new Child.ChildBuilder(
                          (int) (long) ((JSONObject) object).get(Constants.ID))
@@ -131,7 +130,6 @@ public final class Utils {
                             .build();
                     finalArray.add(kid);
                 }
-
             }
             return finalArray;
         } else {

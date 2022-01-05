@@ -1,13 +1,11 @@
 package pojo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.Cities;
 
 import java.util.ArrayList;
 
 public final class InitialData {
     private Double santaBudget;
-    @JsonProperty
     private final ArrayList<Child> children = new ArrayList<>();
     private final ArrayList<Gift> gifts = new ArrayList<>();
     private ArrayList<Cities> cities = new ArrayList<>();

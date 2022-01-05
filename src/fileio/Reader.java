@@ -13,7 +13,6 @@ import pojo.InitialData;
 import pojo.Input;
 import util.Utils;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public final class Reader {
                       (int) (long) ((JSONObject) kid).get(Constants.ID))
                       .withNiceScore((double) (long) ((JSONObject) kid).get(Constants.NICE_SCORE))
                       .withPreference(Utils.convertJSONArrayCategory((JSONArray) ((JSONObject) kid)
-                      .get(Constants.GIFTS_PREFERENCES)))
+                        .get(Constants.GIFTS_PREFERENCES)))
                       .withLastName((String) ((JSONObject) kid).get(Constants.LAST_NAME))
                       .withFirstName((String) ((JSONObject) kid).get(Constants.FIRST_NAME))
                       .withAge((int) (long) ((JSONObject) kid).get(Constants.AGE))
@@ -84,14 +83,13 @@ public final class Reader {
                         Utils.convertJSONArrayChildUpdate((JSONArray) (((JSONObject) change)
                                 .get(Constants.CHILDREN_UPDATES))),
                         Utils.convertJSONArrayGift((JSONArray) (((JSONObject) change)
-                                .get(Constants.NEW_GIFTS)))
-                        ));
+                                .get(Constants.NEW_GIFTS)))));
             }
+
             Input in = Input.getInstance(); //create the database (DB)
             in.setAnnualChanges(annualChanges); //populate the DB
             in.setInitialData(iData);
             in.setNumberOfYears(jNumberOfYears);
-
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }

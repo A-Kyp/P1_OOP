@@ -40,8 +40,7 @@ public final class SingleTest {
 
         beSanta(in, out);
 
-        //Checker.calculateScore();
-
+        //Checker.calculateScore(); //uncomment this line for checker
     }
 
     /**

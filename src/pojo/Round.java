@@ -12,10 +12,6 @@ public final class Round {
     private final RoundService roundService = RoundService.getInstance();
     private final ChildService childService = ChildService.getInstance();
 
-    public Double getBudgetUnit() {
-        return budgetUnit;
-    }
-
     /**
      * Calculate average niceScore for each child
      * @param kids the Child array containing the children

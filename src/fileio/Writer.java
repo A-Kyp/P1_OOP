@@ -33,7 +33,6 @@ public final class Writer {
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
         writer.writeValue(out, array);
-
     }
 
     /**
