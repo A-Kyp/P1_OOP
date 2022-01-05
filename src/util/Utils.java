@@ -96,7 +96,7 @@ public class Utils {
                     (int) (long) ((JSONObject) object).get(Constants.ID))
                     .withNiceScore((double) (long) ((JSONObject) object).get(Constants.NICE_SCORE))
                     .withPreference(Utils.convertJSONArrayCategory((JSONArray) ((JSONObject) object)
-                    .get(Constants.GIFTS_PREFERENCES)))
+                        .get(Constants.GIFTS_PREFERENCES)))
                     .withLastName((String) ((JSONObject) object).get(Constants.LAST_NAME))
                     .withFirstName((String) ((JSONObject) object).get(Constants.FIRST_NAME))
                     .withAge((int) (long) ((JSONObject) object).get(Constants.AGE))
@@ -115,8 +115,8 @@ public class Utils {
             ArrayList<Child> finalArray = new ArrayList<>();
             for (Object object : array) {
                 Object score = ((JSONObject) object).get(Constants.NICE_SCORE);
-                Object giftPreference = ((JSONObject) object)
-                        .get(Constants.GIFTS_PREFERENCES);
+                Object giftPreference = ((JSONObject) object).get(Constants.GIFTS_PREFERENCES);
+
                 if (score != null && giftPreference != null) {
                     Child kid = new Child.ChildBuilder(
                          (int) (long) ((JSONObject) object).get(Constants.ID))
@@ -157,8 +157,7 @@ public class Utils {
                 Gift gift = new Gift(
                         (String) ((JSONObject) toy).get(Constants.PRODUCT_NAME),
                         (double) (long) ((JSONObject) toy).get(Constants.PRICE),
-                        Utils.toCategory((String) ((JSONObject) toy).get(Constants.CATEGORY))
-                );
+                        Utils.toCategory((String) ((JSONObject) toy).get(Constants.CATEGORY)));
                 finalArray.add(gift);
             }
             return finalArray;

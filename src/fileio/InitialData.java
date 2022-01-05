@@ -1,20 +1,20 @@
-package fileio;
+package pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.Cities;
-import pojo.Child;
-import pojo.Gift;
 
 import java.util.ArrayList;
 
-public class InitialData {
+public final class InitialData {
     private Double santaBudget;
-    private ArrayList<Child> children = new ArrayList<>();
-    private ArrayList<Gift> gifts = new ArrayList<>();
+    @JsonProperty
+    private final ArrayList<Child> children = new ArrayList<>();
+    private final ArrayList<Gift> gifts = new ArrayList<>();
     private ArrayList<Cities> cities = new ArrayList<>();
 
     public InitialData() { }
-    public InitialData(Double santaBudget, ArrayList<Child> children,
-                       ArrayList<Gift> gifts, ArrayList<Cities> cities) {
+    public InitialData(final Double santaBudget, final ArrayList<Child> children,
+                       final ArrayList<Gift> gifts, final ArrayList<Cities> cities) {
         this.santaBudget = santaBudget;
         this.children.addAll(children);
         this.gifts.addAll(gifts);
@@ -35,15 +35,5 @@ public class InitialData {
 
     public ArrayList<Cities> getCities() {
         return cities;
-    }
-
-    @Override
-    public String toString() {
-        return "InitialData{" +
-                "santaBudget=" + santaBudget +
-                ", children=" + children +
-                ", gifts=" + gifts +
-                ", cities=" + cities +
-                '}';
     }
 }

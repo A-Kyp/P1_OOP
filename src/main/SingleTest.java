@@ -1,13 +1,11 @@
 package main;
 
-import checker.Checker;
 import common.Constants;
 import fileio.JArrayChild;
 import fileio.JArrayRounds;
 import fileio.PreChecker;
 import fileio.Reader;
 import fileio.Writer;
-import org.json.simple.parser.ParseException;
 import pojo.AnnualChange;
 import pojo.Child;
 import pojo.Gift;
@@ -18,18 +16,14 @@ import sort.Sort;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Class used to run the code
  */
-public final class Main {
+public final class SingleTest {
 
-    private Main() {
+    private SingleTest() {
         ///constructor for checkstyle
     }
     /**
@@ -37,29 +31,17 @@ public final class Main {
      * @param args
      *          the arguments used to call the main method
      */
-    public static void main(final String[] args) throws IOException, ParseException {
-        File directory = new File(Constants.TESTS_PATH); //path to the tests folder
-        Path path = Paths.get(Constants.RESULT_PATH);
-        if (!Files.exists(path)) {
-            Files.createDirectories(path);
-        }
-
+    public static void main(final String[] args) throws IOException {
         File outputDirectory = new File(Constants.RESULT_PATH);
         PreChecker.deleteFiles(outputDirectory.listFiles());
 
-        for (File file : Objects.requireNonNull(directory.listFiles())) {
-            String extension;
-            String test = "test";
-            int index = test.length();
-            extension = file.getName().substring(index);
-            String filepath = Constants.OUT_PATH + extension;
-            File out = new File(filepath);
-            boolean isCreated = out.createNewFile();
-            if (isCreated) {
-                beSanta(file.getAbsolutePath(), filepath);
-            }
-        }
-        Checker.calculateScore();
+        String in = "tests/test7.json";
+        String out = "output/test7.json";
+
+        beSanta(in, out);
+
+        //Checker.calculateScore();
+
     }
 
     /**
@@ -70,9 +52,9 @@ public final class Main {
         File out = new File(outFile);
         Reader read = new Reader(inFile);
         Input in = Input.getInstance(); //the DB
-        JArrayRounds arrayRounds = new JArrayRounds(); // for writing the JSON file
-        Writer writer = new Writer(outFile); // also, for writing the JSON file
         ChildService childService = ChildService.getInstance();
+        JArrayRounds arrayRounds = new JArrayRounds();
+        Writer writer = new Writer(outFile);
 
         read.readData(); //populate the DB
 
@@ -80,27 +62,24 @@ public final class Main {
         ArrayList<Child> kids = in.getInitialData().getChildren();
         ArrayList<Gift> gifts = in.getInitialData().getGifts();
         ArrayList<AnnualChange> changes = in.getAnnualChanges();
+        double santaBudget = in.getInitialData().getSantaBudget();
 
         //start roundZero
-        double santaBudget = in.getInitialData().getSantaBudget();
-        roundZero.eliminateYoungAdults(kids); // kick out young adults if there are any
+        roundZero.eliminateYoungAdults(kids); // kick out young adults
         childService.updateMassHistory(kids); // update niceScoreHistory for each kid
         roundZero.calcAverageScore(kids);   // Calculate AverageScore for each kid
         roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
         roundZero.calcAllocatedBudget(kids); //Calculated allocated budget for each kid
         Sort.sortGift(gifts); //Sort gift list
         roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
-
         JArrayChild jArrayChild = new JArrayChild();
-        jArrayChild.load(kids); //save the result of the initial round
+        jArrayChild.load(kids);
         writer.addToJSONArray(arrayRounds, jArrayChild); //add the results to the
                                                          // jsonArray
 
-        //start annualChanges
-        int counter = 1;
         for (AnnualChange change : changes) {
-            santaBudget = change.getNewSantaBudget(); // update santaBudget
-            roundZero.aYearHasPassed(kids); // everybody ages exactly 1 year :)
+            santaBudget = change.getNewSantaBudget(); //update santaBudget
+            roundZero.aYearHasPassed(kids); // everybody ages
             roundZero.eliminateYoungAdults(kids); // kick out young adults
             roundZero.resetReceivedGifts(kids);
             roundZero.roundHistoryUpdate(kids, change.getChildrenUpdates()); // update existing kids
@@ -112,15 +91,10 @@ public final class Main {
             roundZero.addNewGifts(gifts, change.getNewGifts()); // update gift list
             Sort.sortGift(gifts); // sort [updated] gift list
             roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
-
             JArrayChild arrayChild = new JArrayChild();
-            arrayChild.load(kids); //save the result of the initial round
+            arrayChild.load(kids);
             writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the
-                                                            // jsonArray
-            if (counter == in.getNumberOfYears()) {
-                break; //for test7.json
-            }
-            counter++;
+            // jsonArray
         }
         writer.writeRound(out, arrayRounds); //print results in JSON file
     }

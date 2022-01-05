@@ -6,8 +6,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import pojo.AnnualChange;
 import pojo.Child;
 import pojo.Gift;
+import pojo.InitialData;
+import pojo.Input;
 import util.Utils;
 
 import java.io.FileNotFoundException;
@@ -15,12 +18,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Reader {
-    JSONParser jp = new JSONParser();
-    ArrayList<AnnualChange> annualChanges = new ArrayList<>();
-    ArrayList<Child> children = new ArrayList<>();
-    ArrayList<Gift> gifts = new ArrayList<>();
-    ArrayList<Cities> cities = new ArrayList<>();
+public final class Reader {
+    private final JSONParser jp = new JSONParser();
+    private final ArrayList<AnnualChange> annualChanges = new ArrayList<>();
+    private final ArrayList<Child> children = new ArrayList<>();
+    private final ArrayList<Gift> gifts = new ArrayList<>();
+    private final ArrayList<Cities> cities = new ArrayList<>();
     private final String inputPath;
 
     /**
@@ -30,16 +33,15 @@ public class Reader {
         this.inputPath = inputPath;
     }
 
-    public String getInputPath() {
-        return inputPath;
-    }
-
-    public void readData() throws FileNotFoundException {
+    /**
+     * This method represents the reading process
+     */
+    public void readData() {
         try {
             // Parsing the contents of the JSON file
             JSONObject jObj = (JSONObject) jp.parse(new FileReader(inputPath));
-            Integer jNumberOfYears = (int) ((long) jObj.get(Constants.NUMBER_OF_YEARS));
-            Double jSantaBudget = (double) (long) jObj.get(Constants.SANTA_BUDGET);
+            int jNumberOfYears = (int) ((long) jObj.get(Constants.NUMBER_OF_YEARS));
+            double jSantaBudget = (double) (long) jObj.get(Constants.SANTA_BUDGET);
             JSONObject jIData = (JSONObject) jObj.get(Constants.INITIAL_DATA);
             JSONArray jChildren = (JSONArray) jIData.get(Constants.CHILDREN);
             JSONArray jGift = (JSONArray) jIData.get(Constants.SANTA_GIFT_LIST);
@@ -72,7 +74,7 @@ public class Reader {
                 cities.add(kid.getCity());
             }
 
-            InitialData iData = new InitialData((Double) jSantaBudget, children, gifts, cities);
+            InitialData iData = new InitialData(jSantaBudget, children, gifts, cities);
 
             for (Object change : jAnnualChanges) {
                 annualChanges.add(new AnnualChange(
@@ -85,9 +87,11 @@ public class Reader {
                                 .get(Constants.NEW_GIFTS)))
                         ));
             }
-            Input in = Input.getINSTANCE(); //create the database (DB)
+
+            Input in = Input.getInstance(); //create the database (DB)
             in.setAnnualChanges(annualChanges); //populate the DB
             in.setInitialData(iData);
+            in.setNumberOfYears(jNumberOfYears);
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
