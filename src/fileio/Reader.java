@@ -87,7 +87,6 @@ public final class Reader {
                                 .get(Constants.NEW_GIFTS)))
                         ));
             }
-
             Input in = Input.getInstance(); //create the database (DB)
             in.setAnnualChanges(annualChanges); //populate the DB
             in.setInitialData(iData);

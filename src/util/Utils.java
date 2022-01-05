@@ -10,7 +10,9 @@ import pojo.Gift;
 
 import java.util.ArrayList;
 
-public class Utils {
+public final class Utils {
+    private Utils() { }
+
     /**
      * Transforms a string into an enum
      * @param preference for gift
@@ -46,24 +48,6 @@ public class Utils {
             case "Oradea" -> Cities.ORADEA;
             default -> null;
         };
-    }
-
-
-    /**
-     * Transforms an array of JSON's into an array of Cities
-     * @param array of JSONs
-     * @return a list of Cities enum
-     */
-    public static ArrayList<Cities> convertJSONArrayCity(final JSONArray array) {
-        if (array != null) {
-            ArrayList<Cities> finalArray = new ArrayList<>();
-            for (Object object : array) {
-                finalArray.add(toCity((String) object));
-            }
-            return finalArray;
-        } else {
-            return null;
-        }
     }
 
     /**
@@ -110,6 +94,16 @@ public class Utils {
         }
     }
 
+    /**
+     * <p>
+     * Transforms an array of JSON's into an array of children. It is very similar to the
+     * convertJSONArrayChild method, the difference being the notNull fields of the returned
+     * Child array - this method returns children that have notNull values only for the fields
+     * that are to be updated.
+     * </p>
+     * @param array of JSON
+     * @return a list of Children
+     */
     public static ArrayList<Child> convertJSONArrayChildUpdate(final JSONArray array) {
         if (array != null) {
             ArrayList<Child> finalArray = new ArrayList<>();

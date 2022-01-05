@@ -2,9 +2,10 @@ package fileio;
 
 import java.io.File;
 
-public class PreChecker {
+public final class PreChecker {
+    private PreChecker() { }
 
-    /**.
+    /**
      * @param directory The name of the output directory.
      */
     public static void deleteFiles(final File[] directory) {
