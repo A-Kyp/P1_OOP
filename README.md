@@ -91,9 +91,10 @@ For running a single test the SingleTest class was created.
 The PreChecker class delete all resulting files from the output folder, before each run to 
 ensure that the beSanta() method of the Main class is called (the method is called only if the 
 outputFile is successfully created and an already existing file would lead to failure as the 
-file will not be crated).
+file will not be created).
 
 ##Links
 - For the homework [description](https://ocw.cs.pub.ro/courses/poo-ca-cd/teme/proiect/etapa1)
 - For code [skel](https://github.com/oop-pub/oop-asignments/tree/master/proiect1) 
+- [Repository](https://github.com/A-Kyp/P1_OOP) on GitHub (still private at the moment, will be made public after the deadline from the second part of the project expires)
 
